@@ -40,6 +40,42 @@ class ApiClient {
     );
   }
 
+  Future<T> put<T>(
+    String path, {
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    CancelToken? cancelToken,
+    Options? options,
+  }) async {
+    return _request<T>(
+      () => _dio.put(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        cancelToken: cancelToken,
+        options: options,
+      ),
+    );
+  }
+
+  Future<T> delete<T>(
+    String path, {
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    CancelToken? cancelToken,
+    Options? options,
+  }) async {
+    return _request<T>(
+      () => _dio.delete(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        cancelToken: cancelToken,
+        options: options,
+      ),
+    );
+  }
+
   Future<T> _request<T>(Future<Response> Function() request) async {
     try {
       final response = await request();
