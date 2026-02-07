@@ -1,3 +1,4 @@
+import 'package:carcutter_test/core/theme/app_theme.dart';
 import 'package:carcutter_test/features/app/router/router.dart';
 import 'package:flutter/material.dart';
 
@@ -8,15 +9,7 @@ class AppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: AppRouter.router,
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-        appBarTheme: const AppBarTheme(
-          centerTitle: true,
-          backgroundColor: Colors.white,
-        ),
-      ),
+      theme: AppTheme.lightTheme,
     );
   }
 }
