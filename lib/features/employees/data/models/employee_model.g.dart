@@ -6,8 +6,8 @@ part of 'employee_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_EmployeeModel _$EmployeeModelFromJson(Map<String, dynamic> json) =>
-    _EmployeeModel(
+_$EmployeeModelImpl _$$EmployeeModelImplFromJson(Map<String, dynamic> json) =>
+    _$EmployeeModelImpl(
       id: (json['id'] as num).toInt(),
       employeeName: json['employee_name'] as String,
       employeeSalary: _toString(json['employee_salary']),
@@ -15,7 +15,7 @@ _EmployeeModel _$EmployeeModelFromJson(Map<String, dynamic> json) =>
       profileImage: json['profile_image'] as String? ?? '',
     );
 
-Map<String, dynamic> _$EmployeeModelToJson(_EmployeeModel instance) =>
+Map<String, dynamic> _$$EmployeeModelImplToJson(_$EmployeeModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'employee_name': instance.employeeName,
