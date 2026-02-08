@@ -7,6 +7,7 @@ abstract class EmployeeRepository {
   Future<void> syncEmployees();
   Future<void> createEmployee(EmployeeModel employee);
   Future<void> deleteEmployee(int id);
+  Future<void> updateEmployee(EmployeeModel employee);
 }
 
 ///
@@ -36,7 +37,6 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
 
     // Save locally first to update ui via stream
     await _localDataSource.addEmployee(tempEmployee);
-
     try {
       final payload = employee.toJson()..remove('id');
       final serverEmployee = await _remoteDataSource.createEmployee(payload);
@@ -51,17 +51,35 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
   }
 
   @override
+  Future<void> updateEmployee(EmployeeModel employee) async {
+    final oldEmployee = await _localDataSource.getEmployee(employee.id);
+    await _localDataSource.updateEmployee(employee);
+    try {
+      final payload = employee.toJson()..remove('id');
+      final serverEmployee = await _remoteDataSource.updateEmployee(
+        employee.id,
+        payload,
+      );
+      await _localDataSource.updateEmployee(serverEmployee);
+    } catch (e) {
+      if (oldEmployee != null) {
+        await _localDataSource.updateEmployee(oldEmployee);
+      }
+    }
+  }
+
+  @override
   Future<void> deleteEmployee(int id) async {
     final backupEmployee = await _localDataSource.getEmployee(id);
-
+    if (backupEmployee == null) {
+      return;
+    }
     await _localDataSource.deleteEmployee(id);
 
     try {
       await _remoteDataSource.deleteEmployee(id);
     } catch (e) {
-      if (backupEmployee != null) {
-        await _localDataSource.addEmployee(backupEmployee);
-      }
+      await _localDataSource.addEmployee(backupEmployee);
       rethrow;
     }
   }

@@ -8,6 +8,7 @@ abstract class LocalEmployeeDataSource {
   Future<EmployeeModel?> getEmployee(int id);
   Future<void> addEmployee(EmployeeModel employee);
   Future<void> deleteEmployee(int id);
+  Future<void> updateEmployee(EmployeeModel employee);
   Future<void> replaceEmployee(int oldId, EmployeeModel newEmployee);
 }
 
@@ -44,6 +45,12 @@ class LocalEmployeeDataSourceImpl implements LocalEmployeeDataSource {
   Future<void> deleteEmployee(int id) async {
     final db = await _db;
     await _store.record(id).delete(db);
+  }
+
+  @override
+  Future<void> updateEmployee(EmployeeModel employee) async {
+    final db = await _db;
+    await _store.record(employee.id).put(db, employee.toJson());
   }
 
   @override

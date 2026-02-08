@@ -4,6 +4,7 @@ import 'package:carcutter_test/features/employees/data/models/employee_model.dar
 abstract class RemoteEmployeeDataSource {
   Future<List<EmployeeModel>> getEmployees();
   Future<EmployeeModel> createEmployee(Map<String, dynamic> data);
+  Future<EmployeeModel> updateEmployee(int id, Map<String, dynamic> data);
   Future<void> deleteEmployee(int id);
 }
 
@@ -25,7 +26,19 @@ class RemoteEmployeeDataSourceImpl implements RemoteEmployeeDataSource {
       '/create',
       data: data,
     );
-    return EmployeeModel.fromJson(response);
+    return EmployeeModel.fromJson(response['data']);
+  }
+
+  @override
+  Future<EmployeeModel> updateEmployee(
+    int id,
+    Map<String, dynamic> data,
+  ) async {
+    final response = await _client.put<Map<String, dynamic>>(
+      '/update/$id',
+      data: data,
+    );
+    return EmployeeModel.fromJson(response['data']);
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'package:carcutter_test/features/employees/employee.dart';
+import 'package:carcutter_test/features/employees/presentation/employee_detail/cubit/employee_detail_cubit.dart';
 import 'package:carcutter_test/features/employees/presentation/employees_feed/cubit/employees_feed_cubit.dart';
 import 'package:carcutter_test/locator.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,12 @@ abstract class AppRouter {
             path: EmployeeDetailView.path,
             name: EmployeeDetailView.routeName,
             builder: (context, state) {
-              return EmployeeDetailView();
+              return BlocProvider<EmployeeDetailCubit>(
+                child: EmployeeDetailView(),
+                create: (context) =>
+                    EmployeeDetailCubit(sl.get<EmployeeRepository>())
+                      ..initialize(state.extra as EmployeeModel?),
+              );
             },
           ),
         ],

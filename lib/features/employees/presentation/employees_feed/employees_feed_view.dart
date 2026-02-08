@@ -26,9 +26,17 @@ class EmployeesFeedView extends StatelessWidget {
         listener: (context, state) {
           if (state.failure != null) {
             final msg = state.failure!.mapErrorMessage();
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(msg)));
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Theme.of(context).colorScheme.error,
+                content: Text(
+                  msg,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onError,
+                  ),
+                ),
+              ),
+            );
           }
         },
         builder: (context, state) {
@@ -51,7 +59,10 @@ class EmployeesFeedView extends StatelessWidget {
                 final employee = state.employees[index];
                 return EmployeeListItem(
                   employee: employee,
-                  onTap: () => context.pushNamed(EmployeeDetailView.routeName),
+                  onTap: () => context.pushNamed(
+                    EmployeeDetailView.routeName,
+                    extra: employee,
+                  ),
                 );
               },
               itemCount: state.employees.length,
@@ -60,7 +71,8 @@ class EmployeesFeedView extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () =>
+            context.pushNamed(EmployeeDetailView.routeName, extra: null),
         child: const Icon(Icons.add),
       ),
     );
