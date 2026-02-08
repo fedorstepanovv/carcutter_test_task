@@ -62,21 +62,21 @@ class EmployeesFeedView extends StatelessWidget {
 }
 
 class _SyncIndicator extends StatelessWidget {
-  const _SyncIndicator({super.key});
+  const _SyncIndicator();
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<EmployeesFeedCubit, EmployeesFeedState>(
-      buildWhen: (p, c) => p.isSyncing != c.isSyncing,
-      builder: (context, state) {
-        if (state.isSyncing) {
-          return const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: CircularProgressIndicator(strokeWidth: 2),
-          );
-        }
-        return const SizedBox.shrink();
-      },
+    final isSyncing = context.select(
+      (EmployeesFeedCubit cubit) => cubit.state.isSyncing,
+    );
+    if (!isSyncing) return const SizedBox.shrink();
+    return const Padding(
+      padding: EdgeInsets.all(16.0),
+      child: SizedBox(
+        width: 20,
+        height: 20,
+        child: CircularProgressIndicator(strokeWidth: 2),
+      ),
     );
   }
 }
