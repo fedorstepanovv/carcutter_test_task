@@ -10,9 +10,9 @@ _EmployeeModel _$EmployeeModelFromJson(Map<String, dynamic> json) =>
     _EmployeeModel(
       id: (json['id'] as num).toInt(),
       employeeName: json['employee_name'] as String,
-      employeeSalary: json['employee_salary'] as String,
-      employeeAge: json['employee_age'] as String,
-      profileImage: json['profile_image'] as String,
+      employeeSalary: _toString(json['employee_salary']),
+      employeeAge: _toString(json['employee_age']),
+      profileImage: json['profile_image'] as String? ?? '',
     );
 
 Map<String, dynamic> _$EmployeeModelToJson(_EmployeeModel instance) =>

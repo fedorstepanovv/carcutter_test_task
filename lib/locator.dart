@@ -19,7 +19,7 @@ void setupServiceLocator() {
         receiveTimeout: AppConfig.receiveTimeout,
       ),
     );
-    dio.interceptors.add(LogInterceptor());
+    dio.interceptors.add(LogInterceptor(responseBody: true));
     return dio;
   });
   sl.registerLazySingleton<ApiClient>(() => ApiClient(sl<Dio>()));

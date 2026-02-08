@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$EmployeeModel {
 
- int get id;@JsonKey(name: 'employee_name') String get employeeName;@JsonKey(name: 'employee_salary') String get employeeSalary;@JsonKey(name: 'employee_age') String get employeeAge;@JsonKey(name: 'profile_image') String get profileImage;
+ int get id;@JsonKey(name: 'employee_name') String get employeeName;@JsonKey(name: 'employee_salary', fromJson: _toString) String get employeeSalary;@JsonKey(name: 'employee_age', fromJson: _toString) String get employeeAge;@JsonKey(name: 'profile_image', defaultValue: '') String get profileImage;
 /// Create a copy of EmployeeModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $EmployeeModelCopyWith<$Res>  {
   factory $EmployeeModelCopyWith(EmployeeModel value, $Res Function(EmployeeModel) _then) = _$EmployeeModelCopyWithImpl;
 @useResult
 $Res call({
- int id,@JsonKey(name: 'employee_name') String employeeName,@JsonKey(name: 'employee_salary') String employeeSalary,@JsonKey(name: 'employee_age') String employeeAge,@JsonKey(name: 'profile_image') String profileImage
+ int id,@JsonKey(name: 'employee_name') String employeeName,@JsonKey(name: 'employee_salary', fromJson: _toString) String employeeSalary,@JsonKey(name: 'employee_age', fromJson: _toString) String employeeAge,@JsonKey(name: 'profile_image', defaultValue: '') String profileImage
 });
 
 
@@ -157,7 +157,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'employee_name')  String employeeName, @JsonKey(name: 'employee_salary')  String employeeSalary, @JsonKey(name: 'employee_age')  String employeeAge, @JsonKey(name: 'profile_image')  String profileImage)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'employee_name')  String employeeName, @JsonKey(name: 'employee_salary', fromJson: _toString)  String employeeSalary, @JsonKey(name: 'employee_age', fromJson: _toString)  String employeeAge, @JsonKey(name: 'profile_image', defaultValue: '')  String profileImage)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _EmployeeModel() when $default != null:
 return $default(_that.id,_that.employeeName,_that.employeeSalary,_that.employeeAge,_that.profileImage);case _:
@@ -178,7 +178,7 @@ return $default(_that.id,_that.employeeName,_that.employeeSalary,_that.employeeA
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'employee_name')  String employeeName, @JsonKey(name: 'employee_salary')  String employeeSalary, @JsonKey(name: 'employee_age')  String employeeAge, @JsonKey(name: 'profile_image')  String profileImage)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'employee_name')  String employeeName, @JsonKey(name: 'employee_salary', fromJson: _toString)  String employeeSalary, @JsonKey(name: 'employee_age', fromJson: _toString)  String employeeAge, @JsonKey(name: 'profile_image', defaultValue: '')  String profileImage)  $default,) {final _that = this;
 switch (_that) {
 case _EmployeeModel():
 return $default(_that.id,_that.employeeName,_that.employeeSalary,_that.employeeAge,_that.profileImage);case _:
@@ -198,7 +198,7 @@ return $default(_that.id,_that.employeeName,_that.employeeSalary,_that.employeeA
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'employee_name')  String employeeName, @JsonKey(name: 'employee_salary')  String employeeSalary, @JsonKey(name: 'employee_age')  String employeeAge, @JsonKey(name: 'profile_image')  String profileImage)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'employee_name')  String employeeName, @JsonKey(name: 'employee_salary', fromJson: _toString)  String employeeSalary, @JsonKey(name: 'employee_age', fromJson: _toString)  String employeeAge, @JsonKey(name: 'profile_image', defaultValue: '')  String profileImage)?  $default,) {final _that = this;
 switch (_that) {
 case _EmployeeModel() when $default != null:
 return $default(_that.id,_that.employeeName,_that.employeeSalary,_that.employeeAge,_that.profileImage);case _:
@@ -213,14 +213,14 @@ return $default(_that.id,_that.employeeName,_that.employeeSalary,_that.employeeA
 @JsonSerializable()
 
 class _EmployeeModel implements EmployeeModel {
-  const _EmployeeModel({required this.id, @JsonKey(name: 'employee_name') required this.employeeName, @JsonKey(name: 'employee_salary') required this.employeeSalary, @JsonKey(name: 'employee_age') required this.employeeAge, @JsonKey(name: 'profile_image') required this.profileImage});
+  const _EmployeeModel({required this.id, @JsonKey(name: 'employee_name') required this.employeeName, @JsonKey(name: 'employee_salary', fromJson: _toString) required this.employeeSalary, @JsonKey(name: 'employee_age', fromJson: _toString) required this.employeeAge, @JsonKey(name: 'profile_image', defaultValue: '') required this.profileImage});
   factory _EmployeeModel.fromJson(Map<String, dynamic> json) => _$EmployeeModelFromJson(json);
 
 @override final  int id;
 @override@JsonKey(name: 'employee_name') final  String employeeName;
-@override@JsonKey(name: 'employee_salary') final  String employeeSalary;
-@override@JsonKey(name: 'employee_age') final  String employeeAge;
-@override@JsonKey(name: 'profile_image') final  String profileImage;
+@override@JsonKey(name: 'employee_salary', fromJson: _toString) final  String employeeSalary;
+@override@JsonKey(name: 'employee_age', fromJson: _toString) final  String employeeAge;
+@override@JsonKey(name: 'profile_image', defaultValue: '') final  String profileImage;
 
 /// Create a copy of EmployeeModel
 /// with the given fields replaced by the non-null parameter values.
@@ -255,7 +255,7 @@ abstract mixin class _$EmployeeModelCopyWith<$Res> implements $EmployeeModelCopy
   factory _$EmployeeModelCopyWith(_EmployeeModel value, $Res Function(_EmployeeModel) _then) = __$EmployeeModelCopyWithImpl;
 @override @useResult
 $Res call({
- int id,@JsonKey(name: 'employee_name') String employeeName,@JsonKey(name: 'employee_salary') String employeeSalary,@JsonKey(name: 'employee_age') String employeeAge,@JsonKey(name: 'profile_image') String profileImage
+ int id,@JsonKey(name: 'employee_name') String employeeName,@JsonKey(name: 'employee_salary', fromJson: _toString) String employeeSalary,@JsonKey(name: 'employee_age', fromJson: _toString) String employeeAge,@JsonKey(name: 'profile_image', defaultValue: '') String profileImage
 });
 
 

@@ -1,5 +1,8 @@
 import 'package:carcutter_test/features/employees/employee.dart';
+import 'package:carcutter_test/features/employees/presentation/employees_feed/cubit/employees_feed_cubit.dart';
+import 'package:carcutter_test/locator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 abstract class AppRouter {
@@ -13,7 +16,11 @@ abstract class AppRouter {
       GoRoute(
         path: EmployeesFeedView.path,
         name: EmployeesFeedView.routeName,
-        builder: (context, state) => const EmployeesFeedView(),
+        builder: (context, state) => BlocProvider(
+          create: (context) =>
+              EmployeesFeedCubit(sl.get<EmployeeRepository>())..loadEmployees(),
+          child: const EmployeesFeedView(),
+        ),
         routes: [
           GoRoute(
             path: EmployeeDetailView.path,

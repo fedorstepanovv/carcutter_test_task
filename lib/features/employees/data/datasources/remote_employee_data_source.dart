@@ -14,8 +14,9 @@ class RemoteEmployeeDataSourceImpl implements RemoteEmployeeDataSource {
 
   @override
   Future<List<EmployeeModel>> getEmployees() async {
-    final response = await _client.get<List<dynamic>>('/employees');
-    return response.map((json) => EmployeeModel.fromJson(json)).toList();
+    final response = await _client.get<Map<String, dynamic>>('/employees');
+    final List<dynamic> data = response['data'];
+    return data.map((json) => EmployeeModel.fromJson(json)).toList();
   }
 
   @override
