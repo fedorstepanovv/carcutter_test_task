@@ -30,11 +30,8 @@ class _NameInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isEnabled = context.select(
-      (EmployeeDetailCubit c) => c.state.isEditing,
-    );
-    final displayError = context.select(
-      (EmployeeDetailCubit c) => c.state.name.displayError,
+    final (isEnabled, displayError) = context.select(
+      (EmployeeDetailCubit c) => (c.state.isEditing, c.state.name.displayError),
     );
 
     final initialValue = context.read<EmployeeDetailCubit>().state.name.value;
@@ -59,11 +56,9 @@ class _SalaryInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isEnabled = context.select(
-      (EmployeeDetailCubit c) => c.state.isEditing,
-    );
-    final displayError = context.select(
-      (EmployeeDetailCubit c) => c.state.salary.displayError,
+    final (isEnabled, displayError) = context.select(
+      (EmployeeDetailCubit c) =>
+          (c.state.isEditing, c.state.salary.displayError),
     );
     final initialValue = context.read<EmployeeDetailCubit>().state.salary.value;
 
@@ -88,11 +83,8 @@ class _AgeInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isEnabled = context.select(
-      (EmployeeDetailCubit c) => c.state.isEditing,
-    );
-    final displayError = context.select(
-      (EmployeeDetailCubit c) => c.state.age.displayError,
+    final (isEnabled, displayError) = context.select(
+      (EmployeeDetailCubit c) => (c.state.isEditing, c.state.age.displayError),
     );
     final initialValue = context.read<EmployeeDetailCubit>().state.age.value;
 
@@ -117,15 +109,13 @@ class _SubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isEditing = context.select(
-      (EmployeeDetailCubit c) => c.state.isEditing,
-    );
-    final isInProgress = context.select(
-      (EmployeeDetailCubit c) => c.state.status.isInProgress,
-    );
-    final isValid = context.select((EmployeeDetailCubit c) => c.state.isValid);
-    final isNew = context.select(
-      (EmployeeDetailCubit c) => c.state.isNewEmployee,
+    final (isEditing, isInProgress, isValid, isNew) = context.select(
+      (EmployeeDetailCubit c) => (
+        c.state.isEditing,
+        c.state.status.isInProgress,
+        c.state.isValid,
+        c.state.isNewEmployee,
+      ),
     );
 
     if (!isEditing) return const SizedBox.shrink();

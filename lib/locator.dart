@@ -40,5 +40,6 @@ void setupServiceLocator() {
       sl.get<LocalEmployeeDataSource>(),
       sl.get<RemoteEmployeeDataSource>(),
     ),
+    dispose: (repo) => repo.dispose(),
   );
 }

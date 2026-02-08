@@ -17,9 +17,6 @@ class EmployeeDetailView extends StatelessWidget {
       listener: (context, state) {
         if (state.status.isSuccess) {
           Navigator.pop(context);
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Operation completed successfully')),
-          );
         }
         if (state.status.isFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -49,35 +46,36 @@ class _FormAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isNew = context.select(
-      (EmployeeDetailCubit c) => c.state.isNewEmployee,
+    final (isNew, isEditing, isSubmitting, isSyncing) = context.select(
+      (EmployeeDetailCubit c) => (
+        c.state.isNewEmployee,
+        c.state.isEditing,
+        c.state.status.isInProgress,
+        c.state.isSyncing,
+      ),
     );
-    final isEditing = context.select(
-      (EmployeeDetailCubit c) => c.state.isEditing,
-    );
-    final isSubmitting = context.select(
-      (EmployeeDetailCubit c) => c.state.status.isInProgress,
-    );
+    final canEdit = !isNew && !isSyncing && !isSubmitting;
 
     return AppBar(
       title: Text(isNew ? 'New Employee' : 'Details'),
-      actions: [
-        if (!isNew)
-          IconButton(
-            icon: Icon(isEditing ? Icons.close : Icons.edit),
-            onPressed: () =>
-                context.read<EmployeeDetailCubit>().toggleEditMode(),
-          ),
-        if (!isNew && !isSubmitting)
-          IconButton(
-            icon: Icon(
-              Icons.delete_outline,
-              color: Theme.of(context).colorScheme.error,
-            ),
-            onPressed: () =>
-                context.read<EmployeeDetailCubit>().deleteEmployee(),
-          ),
-      ],
+      actions: !canEdit
+          ? []
+          : [
+              IconButton(
+                icon: Icon(isEditing ? Icons.close : Icons.edit),
+                onPressed: () =>
+                    context.read<EmployeeDetailCubit>().toggleEditMode(),
+              ),
+
+              IconButton(
+                icon: Icon(
+                  Icons.delete_outline,
+                  color: Theme.of(context).colorScheme.error,
+                ),
+                onPressed: () =>
+                    context.read<EmployeeDetailCubit>().deleteEmployee(),
+              ),
+            ],
     );
   }
 }

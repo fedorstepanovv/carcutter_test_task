@@ -12,6 +12,7 @@ abstract class EmployeeDetailState with _$EmployeeDetailState {
     AppException? failure,
     int? employeeId,
     @Default(true) bool isEditing,
+    @Default(false) bool isSyncing,
   }) = _EmployeeDetailState;
 
   bool get isNewEmployee => employeeId == null;

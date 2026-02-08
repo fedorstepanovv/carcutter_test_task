@@ -1,6 +1,11 @@
+import 'dart:async';
+
+import 'package:carcutter_test/core/exceptions/exceptions.dart';
 import 'package:carcutter_test/features/employees/data/datasources/local_employee_data_source.dart';
 import 'package:carcutter_test/features/employees/data/datasources/remote_employee_data_source.dart';
 import 'package:carcutter_test/features/employees/data/models/employee_model.dart';
+import 'package:flutter/material.dart';
+import 'package:queue/queue.dart';
 
 abstract class EmployeeRepository {
   Stream<List<EmployeeModel>> getEmployees();
@@ -8,6 +13,8 @@ abstract class EmployeeRepository {
   Future<void> createEmployee(EmployeeModel employee);
   Future<void> deleteEmployee(int id);
   Future<void> updateEmployee(EmployeeModel employee);
+  Stream<AppException> get syncErrors;
+  void dispose();
 }
 
 ///
@@ -18,6 +25,17 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
   final RemoteEmployeeDataSource _remoteDataSource;
 
   EmployeeRepositoryImpl(this._localDataSource, this._remoteDataSource);
+
+  final _syncErrorController = StreamController<AppException>.broadcast();
+
+  @override
+  Stream<AppException> get syncErrors => _syncErrorController.stream;
+
+  // add queue for ordered execution of reqs we need to support the optimistic ux
+  final _syncQueue = Queue(parallel: 1);
+
+  @visibleForTesting
+  Queue get syncQueue => _syncQueue;
 
   @override
   Stream<List<EmployeeModel>> getEmployees() {
@@ -37,6 +55,10 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
 
     // Save locally first to update ui via stream
     await _localDataSource.addEmployee(tempEmployee);
+    _syncQueue.add(() => _createRemote(employee, tempId));
+  }
+
+  Future<void> _createRemote(EmployeeModel employee, int tempId) async {
     try {
       final payload = employee.toJson()..remove('id');
       final serverEmployee = await _remoteDataSource.createEmployee(payload);
@@ -46,7 +68,7 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
     } catch (e) {
       // Rollback local employee
       await _localDataSource.deleteEmployee(tempId);
-      rethrow;
+      _emitError(e);
     }
   }
 
@@ -54,18 +76,25 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
   Future<void> updateEmployee(EmployeeModel employee) async {
     final oldEmployee = await _localDataSource.getEmployee(employee.id);
     await _localDataSource.updateEmployee(employee);
+    if (oldEmployee != null) {
+      _syncQueue.add(() => _updateRemote(employee, oldEmployee));
+    }
+  }
+
+  Future<void> _updateRemote(
+    EmployeeModel newEmployee,
+    EmployeeModel oldEmployee,
+  ) async {
     try {
-      final payload = employee.toJson()..remove('id');
+      final payload = newEmployee.toJson()..remove('id');
       final serverEmployee = await _remoteDataSource.updateEmployee(
-        employee.id,
+        newEmployee.id,
         payload,
       );
       await _localDataSource.updateEmployee(serverEmployee);
     } catch (e) {
-      if (oldEmployee != null) {
-        await _localDataSource.updateEmployee(oldEmployee);
-      }
-      rethrow;
+      await _localDataSource.updateEmployee(oldEmployee);
+      _emitError(e);
     }
   }
 
@@ -76,12 +105,29 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
       return;
     }
     await _localDataSource.deleteEmployee(id);
+    _syncQueue.add(() => _deleteRemote(id, backupEmployee));
+  }
 
+  Future<void> _deleteRemote(int id, EmployeeModel backupEmployee) async {
     try {
       await _remoteDataSource.deleteEmployee(id);
     } catch (e) {
       await _localDataSource.addEmployee(backupEmployee);
-      rethrow;
+      _emitError(e);
     }
+  }
+
+  void _emitError(Object e) {
+    if (_syncErrorController.isClosed) return;
+
+    _syncErrorController.add(
+      e is AppException ? e : AppException.unknown(error: e),
+    );
+  }
+
+  @override
+  void dispose() {
+    _syncQueue.cancel();
+    _syncErrorController.close();
   }
 }

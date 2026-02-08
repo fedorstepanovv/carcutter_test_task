@@ -35,6 +35,7 @@ class LocalEmployeeDataSourceImpl implements LocalEmployeeDataSource {
   Future<void> cacheEmployees(List<EmployeeModel> employees) async {
     final db = await _db;
     await db.transaction((txn) async {
+      await _store.delete(txn);
       for (var employee in employees) {
         await _store.record(employee.id).put(txn, employee.toJson());
       }

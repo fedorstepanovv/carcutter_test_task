@@ -15,6 +15,9 @@ class EmployeeDetailCubit extends Cubit<EmployeeDetailState> {
 
   void initialize(EmployeeModel? employee) {
     if (employee != null) {
+      // Dont allow editing for not 100% synced employees
+      final isSyncing = employee.id < 0;
+
       // Prefill data for existing employee
       final name = RequiredEmployeeInput.pure(employee.employeeName);
       final salary = RequiredEmployeeInput.pure(employee.employeeSalary);
@@ -28,6 +31,7 @@ class EmployeeDetailCubit extends Cubit<EmployeeDetailState> {
           age: age,
           isEditing: false,
           isValid: Formz.validate([name, salary, age]),
+          isSyncing: isSyncing,
         ),
       );
     } else {
@@ -71,7 +75,7 @@ class EmployeeDetailCubit extends Cubit<EmployeeDetailState> {
   }
 
   Future<void> submit() async {
-    if (!state.isValid) return;
+    if (!state.isValid || state.status.isInProgress) return;
 
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
 

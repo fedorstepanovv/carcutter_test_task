@@ -33,38 +33,17 @@ class EmployeesFeedCubit extends Cubit<EmployeesFeedState> {
         );
       },
     );
-    await _refreshEmployees();
-  }
-
-  Future<void> _refreshEmployees() async {
     if (state.employees.isEmpty) {
       emit(state.copyWith(status: EmployeesFeedStatus.loading));
-    } else {
-      emit(state.copyWith(isSyncing: true));
     }
+
     try {
       await _repository.syncEmployees();
-      emit(state.copyWith(isSyncing: false));
-    } on AppException catch (e) {
-      emit(
-        state.copyWith(
-          isSyncing: false,
-          failure: e,
-          status: state.employees.isEmpty
-              ? EmployeesFeedStatus.error
-              : state.status,
-        ),
-      );
-    } catch (e) {
-      emit(
-        state.copyWith(
-          isSyncing: false,
-          failure: AppException.unknown(),
-          status: state.employees.isEmpty
-              ? EmployeesFeedStatus.error
-              : state.status,
-        ),
-      );
+    } catch (_) {
+      // Add error state to show a full view error if no employees
+      if (state.employees.isEmpty) {
+        emit(state.copyWith(status: EmployeesFeedStatus.error));
+      }
     }
   }
 

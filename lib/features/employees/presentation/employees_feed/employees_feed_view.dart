@@ -20,25 +20,7 @@ class EmployeesFeedView extends StatelessWidget {
         title: Text("Employees Feed"),
         actions: [_SyncIndicator()],
       ),
-      body: BlocConsumer<EmployeesFeedCubit, EmployeesFeedState>(
-        listenWhen: (previous, current) =>
-            previous.failure != current.failure && current.failure != null,
-        listener: (context, state) {
-          if (state.failure != null) {
-            final msg = state.failure!.mapErrorMessage();
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                backgroundColor: Theme.of(context).colorScheme.error,
-                content: Text(
-                  msg,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onError,
-                  ),
-                ),
-              ),
-            );
-          }
-        },
+      body: BlocBuilder<EmployeesFeedCubit, EmployeesFeedState>(
         builder: (context, state) {
           return switch (state.status) {
             EmployeesFeedStatus.loading => const Center(

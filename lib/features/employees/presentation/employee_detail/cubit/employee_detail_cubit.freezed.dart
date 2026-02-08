@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$EmployeeDetailState {
 
- RequiredEmployeeInput get name; RequiredEmployeeInput get salary; RequiredEmployeeInput get age; FormzSubmissionStatus get status; bool get isValid; AppException? get failure; int? get employeeId; bool get isEditing;
+ RequiredEmployeeInput get name; RequiredEmployeeInput get salary; RequiredEmployeeInput get age; FormzSubmissionStatus get status; bool get isValid; AppException? get failure; int? get employeeId; bool get isEditing; bool get isSyncing;
 /// Create a copy of EmployeeDetailState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $EmployeeDetailStateCopyWith<EmployeeDetailState> get copyWith => _$EmployeeDeta
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is EmployeeDetailState&&(identical(other.name, name) || other.name == name)&&(identical(other.salary, salary) || other.salary == salary)&&(identical(other.age, age) || other.age == age)&&(identical(other.status, status) || other.status == status)&&(identical(other.isValid, isValid) || other.isValid == isValid)&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.employeeId, employeeId) || other.employeeId == employeeId)&&(identical(other.isEditing, isEditing) || other.isEditing == isEditing));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is EmployeeDetailState&&(identical(other.name, name) || other.name == name)&&(identical(other.salary, salary) || other.salary == salary)&&(identical(other.age, age) || other.age == age)&&(identical(other.status, status) || other.status == status)&&(identical(other.isValid, isValid) || other.isValid == isValid)&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.employeeId, employeeId) || other.employeeId == employeeId)&&(identical(other.isEditing, isEditing) || other.isEditing == isEditing)&&(identical(other.isSyncing, isSyncing) || other.isSyncing == isSyncing));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,name,salary,age,status,isValid,failure,employeeId,isEditing);
+int get hashCode => Object.hash(runtimeType,name,salary,age,status,isValid,failure,employeeId,isEditing,isSyncing);
 
 @override
 String toString() {
-  return 'EmployeeDetailState(name: $name, salary: $salary, age: $age, status: $status, isValid: $isValid, failure: $failure, employeeId: $employeeId, isEditing: $isEditing)';
+  return 'EmployeeDetailState(name: $name, salary: $salary, age: $age, status: $status, isValid: $isValid, failure: $failure, employeeId: $employeeId, isEditing: $isEditing, isSyncing: $isSyncing)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $EmployeeDetailStateCopyWith<$Res>  {
   factory $EmployeeDetailStateCopyWith(EmployeeDetailState value, $Res Function(EmployeeDetailState) _then) = _$EmployeeDetailStateCopyWithImpl;
 @useResult
 $Res call({
- RequiredEmployeeInput name, RequiredEmployeeInput salary, RequiredEmployeeInput age, FormzSubmissionStatus status, bool isValid, AppException? failure, int? employeeId, bool isEditing
+ RequiredEmployeeInput name, RequiredEmployeeInput salary, RequiredEmployeeInput age, FormzSubmissionStatus status, bool isValid, AppException? failure, int? employeeId, bool isEditing, bool isSyncing
 });
 
 
@@ -62,7 +62,7 @@ class _$EmployeeDetailStateCopyWithImpl<$Res>
 
 /// Create a copy of EmployeeDetailState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? salary = null,Object? age = null,Object? status = null,Object? isValid = null,Object? failure = freezed,Object? employeeId = freezed,Object? isEditing = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? salary = null,Object? age = null,Object? status = null,Object? isValid = null,Object? failure = freezed,Object? employeeId = freezed,Object? isEditing = null,Object? isSyncing = null,}) {
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as RequiredEmployeeInput,salary: null == salary ? _self.salary : salary // ignore: cast_nullable_to_non_nullable
@@ -72,6 +72,7 @@ as FormzSubmissionStatus,isValid: null == isValid ? _self.isValid : isValid // i
 as bool,failure: freezed == failure ? _self.failure : failure // ignore: cast_nullable_to_non_nullable
 as AppException?,employeeId: freezed == employeeId ? _self.employeeId : employeeId // ignore: cast_nullable_to_non_nullable
 as int?,isEditing: null == isEditing ? _self.isEditing : isEditing // ignore: cast_nullable_to_non_nullable
+as bool,isSyncing: null == isSyncing ? _self.isSyncing : isSyncing // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -169,10 +170,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( RequiredEmployeeInput name,  RequiredEmployeeInput salary,  RequiredEmployeeInput age,  FormzSubmissionStatus status,  bool isValid,  AppException? failure,  int? employeeId,  bool isEditing)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( RequiredEmployeeInput name,  RequiredEmployeeInput salary,  RequiredEmployeeInput age,  FormzSubmissionStatus status,  bool isValid,  AppException? failure,  int? employeeId,  bool isEditing,  bool isSyncing)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _EmployeeDetailState() when $default != null:
-return $default(_that.name,_that.salary,_that.age,_that.status,_that.isValid,_that.failure,_that.employeeId,_that.isEditing);case _:
+return $default(_that.name,_that.salary,_that.age,_that.status,_that.isValid,_that.failure,_that.employeeId,_that.isEditing,_that.isSyncing);case _:
   return orElse();
 
 }
@@ -190,10 +191,10 @@ return $default(_that.name,_that.salary,_that.age,_that.status,_that.isValid,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( RequiredEmployeeInput name,  RequiredEmployeeInput salary,  RequiredEmployeeInput age,  FormzSubmissionStatus status,  bool isValid,  AppException? failure,  int? employeeId,  bool isEditing)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( RequiredEmployeeInput name,  RequiredEmployeeInput salary,  RequiredEmployeeInput age,  FormzSubmissionStatus status,  bool isValid,  AppException? failure,  int? employeeId,  bool isEditing,  bool isSyncing)  $default,) {final _that = this;
 switch (_that) {
 case _EmployeeDetailState():
-return $default(_that.name,_that.salary,_that.age,_that.status,_that.isValid,_that.failure,_that.employeeId,_that.isEditing);case _:
+return $default(_that.name,_that.salary,_that.age,_that.status,_that.isValid,_that.failure,_that.employeeId,_that.isEditing,_that.isSyncing);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -210,10 +211,10 @@ return $default(_that.name,_that.salary,_that.age,_that.status,_that.isValid,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( RequiredEmployeeInput name,  RequiredEmployeeInput salary,  RequiredEmployeeInput age,  FormzSubmissionStatus status,  bool isValid,  AppException? failure,  int? employeeId,  bool isEditing)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( RequiredEmployeeInput name,  RequiredEmployeeInput salary,  RequiredEmployeeInput age,  FormzSubmissionStatus status,  bool isValid,  AppException? failure,  int? employeeId,  bool isEditing,  bool isSyncing)?  $default,) {final _that = this;
 switch (_that) {
 case _EmployeeDetailState() when $default != null:
-return $default(_that.name,_that.salary,_that.age,_that.status,_that.isValid,_that.failure,_that.employeeId,_that.isEditing);case _:
+return $default(_that.name,_that.salary,_that.age,_that.status,_that.isValid,_that.failure,_that.employeeId,_that.isEditing,_that.isSyncing);case _:
   return null;
 
 }
@@ -225,7 +226,7 @@ return $default(_that.name,_that.salary,_that.age,_that.status,_that.isValid,_th
 
 
 class _EmployeeDetailState extends EmployeeDetailState {
-  const _EmployeeDetailState({this.name = const RequiredEmployeeInput.pure(), this.salary = const RequiredEmployeeInput.pure(), this.age = const RequiredEmployeeInput.pure(), this.status = FormzSubmissionStatus.initial, this.isValid = false, this.failure, this.employeeId, this.isEditing = true}): super._();
+  const _EmployeeDetailState({this.name = const RequiredEmployeeInput.pure(), this.salary = const RequiredEmployeeInput.pure(), this.age = const RequiredEmployeeInput.pure(), this.status = FormzSubmissionStatus.initial, this.isValid = false, this.failure, this.employeeId, this.isEditing = true, this.isSyncing = false}): super._();
   
 
 @override@JsonKey() final  RequiredEmployeeInput name;
@@ -236,6 +237,7 @@ class _EmployeeDetailState extends EmployeeDetailState {
 @override final  AppException? failure;
 @override final  int? employeeId;
 @override@JsonKey() final  bool isEditing;
+@override@JsonKey() final  bool isSyncing;
 
 /// Create a copy of EmployeeDetailState
 /// with the given fields replaced by the non-null parameter values.
@@ -247,16 +249,16 @@ _$EmployeeDetailStateCopyWith<_EmployeeDetailState> get copyWith => __$EmployeeD
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EmployeeDetailState&&(identical(other.name, name) || other.name == name)&&(identical(other.salary, salary) || other.salary == salary)&&(identical(other.age, age) || other.age == age)&&(identical(other.status, status) || other.status == status)&&(identical(other.isValid, isValid) || other.isValid == isValid)&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.employeeId, employeeId) || other.employeeId == employeeId)&&(identical(other.isEditing, isEditing) || other.isEditing == isEditing));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EmployeeDetailState&&(identical(other.name, name) || other.name == name)&&(identical(other.salary, salary) || other.salary == salary)&&(identical(other.age, age) || other.age == age)&&(identical(other.status, status) || other.status == status)&&(identical(other.isValid, isValid) || other.isValid == isValid)&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.employeeId, employeeId) || other.employeeId == employeeId)&&(identical(other.isEditing, isEditing) || other.isEditing == isEditing)&&(identical(other.isSyncing, isSyncing) || other.isSyncing == isSyncing));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,name,salary,age,status,isValid,failure,employeeId,isEditing);
+int get hashCode => Object.hash(runtimeType,name,salary,age,status,isValid,failure,employeeId,isEditing,isSyncing);
 
 @override
 String toString() {
-  return 'EmployeeDetailState(name: $name, salary: $salary, age: $age, status: $status, isValid: $isValid, failure: $failure, employeeId: $employeeId, isEditing: $isEditing)';
+  return 'EmployeeDetailState(name: $name, salary: $salary, age: $age, status: $status, isValid: $isValid, failure: $failure, employeeId: $employeeId, isEditing: $isEditing, isSyncing: $isSyncing)';
 }
 
 
@@ -267,7 +269,7 @@ abstract mixin class _$EmployeeDetailStateCopyWith<$Res> implements $EmployeeDet
   factory _$EmployeeDetailStateCopyWith(_EmployeeDetailState value, $Res Function(_EmployeeDetailState) _then) = __$EmployeeDetailStateCopyWithImpl;
 @override @useResult
 $Res call({
- RequiredEmployeeInput name, RequiredEmployeeInput salary, RequiredEmployeeInput age, FormzSubmissionStatus status, bool isValid, AppException? failure, int? employeeId, bool isEditing
+ RequiredEmployeeInput name, RequiredEmployeeInput salary, RequiredEmployeeInput age, FormzSubmissionStatus status, bool isValid, AppException? failure, int? employeeId, bool isEditing, bool isSyncing
 });
 
 
@@ -284,7 +286,7 @@ class __$EmployeeDetailStateCopyWithImpl<$Res>
 
 /// Create a copy of EmployeeDetailState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? salary = null,Object? age = null,Object? status = null,Object? isValid = null,Object? failure = freezed,Object? employeeId = freezed,Object? isEditing = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? salary = null,Object? age = null,Object? status = null,Object? isValid = null,Object? failure = freezed,Object? employeeId = freezed,Object? isEditing = null,Object? isSyncing = null,}) {
   return _then(_EmployeeDetailState(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as RequiredEmployeeInput,salary: null == salary ? _self.salary : salary // ignore: cast_nullable_to_non_nullable
@@ -294,6 +296,7 @@ as FormzSubmissionStatus,isValid: null == isValid ? _self.isValid : isValid // i
 as bool,failure: freezed == failure ? _self.failure : failure // ignore: cast_nullable_to_non_nullable
 as AppException?,employeeId: freezed == employeeId ? _self.employeeId : employeeId // ignore: cast_nullable_to_non_nullable
 as int?,isEditing: null == isEditing ? _self.isEditing : isEditing // ignore: cast_nullable_to_non_nullable
+as bool,isSyncing: null == isSyncing ? _self.isSyncing : isSyncing // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
