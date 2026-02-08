@@ -19,6 +19,8 @@ sealed class AppException with _$AppException {
     StackTrace? stackTrace,
   }) = _ParseError;
 
+  const factory AppException.tooManyRequests() = _TooManyRequests;
+
   const factory AppException.unknown({dynamic error, StackTrace? stackTrace}) =
       _Unknown;
 }

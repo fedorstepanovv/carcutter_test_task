@@ -11,6 +11,7 @@ extension AppExceptionMapper on AppException {
           'Something went wrong on our side. We are working on it!',
       unknown: (_, _) =>
           'Something went wrong on our side. We are working on it!',
+      tooManyRequests: () => 'Server is busy. Give it some time to relax',
     );
   }
 }

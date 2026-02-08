@@ -55,14 +55,15 @@ extension AppExceptionPatterns on AppException {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ServerError value)?  serverError,TResult Function( _NetworkError value)?  networkError,TResult Function( _ValidationError value)?  validationError,TResult Function( _ParseError value)?  parseError,TResult Function( _Unknown value)?  unknown,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ServerError value)?  serverError,TResult Function( _NetworkError value)?  networkError,TResult Function( _ValidationError value)?  validationError,TResult Function( _ParseError value)?  parseError,TResult Function( _TooManyRequests value)?  tooManyRequests,TResult Function( _Unknown value)?  unknown,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _ServerError() when serverError != null:
 return serverError(_that);case _NetworkError() when networkError != null:
 return networkError(_that);case _ValidationError() when validationError != null:
 return validationError(_that);case _ParseError() when parseError != null:
-return parseError(_that);case _Unknown() when unknown != null:
+return parseError(_that);case _TooManyRequests() when tooManyRequests != null:
+return tooManyRequests(_that);case _Unknown() when unknown != null:
 return unknown(_that);case _:
   return orElse();
 
@@ -81,14 +82,15 @@ return unknown(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ServerError value)  serverError,required TResult Function( _NetworkError value)  networkError,required TResult Function( _ValidationError value)  validationError,required TResult Function( _ParseError value)  parseError,required TResult Function( _Unknown value)  unknown,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ServerError value)  serverError,required TResult Function( _NetworkError value)  networkError,required TResult Function( _ValidationError value)  validationError,required TResult Function( _ParseError value)  parseError,required TResult Function( _TooManyRequests value)  tooManyRequests,required TResult Function( _Unknown value)  unknown,}){
 final _that = this;
 switch (_that) {
 case _ServerError():
 return serverError(_that);case _NetworkError():
 return networkError(_that);case _ValidationError():
 return validationError(_that);case _ParseError():
-return parseError(_that);case _Unknown():
+return parseError(_that);case _TooManyRequests():
+return tooManyRequests(_that);case _Unknown():
 return unknown(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
@@ -103,14 +105,15 @@ return unknown(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ServerError value)?  serverError,TResult? Function( _NetworkError value)?  networkError,TResult? Function( _ValidationError value)?  validationError,TResult? Function( _ParseError value)?  parseError,TResult? Function( _Unknown value)?  unknown,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ServerError value)?  serverError,TResult? Function( _NetworkError value)?  networkError,TResult? Function( _ValidationError value)?  validationError,TResult? Function( _ParseError value)?  parseError,TResult? Function( _TooManyRequests value)?  tooManyRequests,TResult? Function( _Unknown value)?  unknown,}){
 final _that = this;
 switch (_that) {
 case _ServerError() when serverError != null:
 return serverError(_that);case _NetworkError() when networkError != null:
 return networkError(_that);case _ValidationError() when validationError != null:
 return validationError(_that);case _ParseError() when parseError != null:
-return parseError(_that);case _Unknown() when unknown != null:
+return parseError(_that);case _TooManyRequests() when tooManyRequests != null:
+return tooManyRequests(_that);case _Unknown() when unknown != null:
 return unknown(_that);case _:
   return null;
 
@@ -128,13 +131,14 @@ return unknown(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( int? statusCode)?  serverError,TResult Function()?  networkError,TResult Function( String? message,  int? statusCode,  Map<String, dynamic>? errors)?  validationError,TResult Function( Object? error,  StackTrace? stackTrace)?  parseError,TResult Function( dynamic error,  StackTrace? stackTrace)?  unknown,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( int? statusCode)?  serverError,TResult Function()?  networkError,TResult Function( String? message,  int? statusCode,  Map<String, dynamic>? errors)?  validationError,TResult Function( Object? error,  StackTrace? stackTrace)?  parseError,TResult Function()?  tooManyRequests,TResult Function( dynamic error,  StackTrace? stackTrace)?  unknown,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ServerError() when serverError != null:
 return serverError(_that.statusCode);case _NetworkError() when networkError != null:
 return networkError();case _ValidationError() when validationError != null:
 return validationError(_that.message,_that.statusCode,_that.errors);case _ParseError() when parseError != null:
-return parseError(_that.error,_that.stackTrace);case _Unknown() when unknown != null:
+return parseError(_that.error,_that.stackTrace);case _TooManyRequests() when tooManyRequests != null:
+return tooManyRequests();case _Unknown() when unknown != null:
 return unknown(_that.error,_that.stackTrace);case _:
   return orElse();
 
@@ -153,13 +157,14 @@ return unknown(_that.error,_that.stackTrace);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( int? statusCode)  serverError,required TResult Function()  networkError,required TResult Function( String? message,  int? statusCode,  Map<String, dynamic>? errors)  validationError,required TResult Function( Object? error,  StackTrace? stackTrace)  parseError,required TResult Function( dynamic error,  StackTrace? stackTrace)  unknown,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( int? statusCode)  serverError,required TResult Function()  networkError,required TResult Function( String? message,  int? statusCode,  Map<String, dynamic>? errors)  validationError,required TResult Function( Object? error,  StackTrace? stackTrace)  parseError,required TResult Function()  tooManyRequests,required TResult Function( dynamic error,  StackTrace? stackTrace)  unknown,}) {final _that = this;
 switch (_that) {
 case _ServerError():
 return serverError(_that.statusCode);case _NetworkError():
 return networkError();case _ValidationError():
 return validationError(_that.message,_that.statusCode,_that.errors);case _ParseError():
-return parseError(_that.error,_that.stackTrace);case _Unknown():
+return parseError(_that.error,_that.stackTrace);case _TooManyRequests():
+return tooManyRequests();case _Unknown():
 return unknown(_that.error,_that.stackTrace);}
 }
 /// A variant of `when` that fallback to returning `null`
@@ -174,13 +179,14 @@ return unknown(_that.error,_that.stackTrace);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( int? statusCode)?  serverError,TResult? Function()?  networkError,TResult? Function( String? message,  int? statusCode,  Map<String, dynamic>? errors)?  validationError,TResult? Function( Object? error,  StackTrace? stackTrace)?  parseError,TResult? Function( dynamic error,  StackTrace? stackTrace)?  unknown,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( int? statusCode)?  serverError,TResult? Function()?  networkError,TResult? Function( String? message,  int? statusCode,  Map<String, dynamic>? errors)?  validationError,TResult? Function( Object? error,  StackTrace? stackTrace)?  parseError,TResult? Function()?  tooManyRequests,TResult? Function( dynamic error,  StackTrace? stackTrace)?  unknown,}) {final _that = this;
 switch (_that) {
 case _ServerError() when serverError != null:
 return serverError(_that.statusCode);case _NetworkError() when networkError != null:
 return networkError();case _ValidationError() when validationError != null:
 return validationError(_that.message,_that.statusCode,_that.errors);case _ParseError() when parseError != null:
-return parseError(_that.error,_that.stackTrace);case _Unknown() when unknown != null:
+return parseError(_that.error,_that.stackTrace);case _TooManyRequests() when tooManyRequests != null:
+return tooManyRequests();case _Unknown() when unknown != null:
 return unknown(_that.error,_that.stackTrace);case _:
   return null;
 
@@ -432,6 +438,38 @@ as StackTrace?,
 
 
 }
+
+/// @nodoc
+
+
+class _TooManyRequests implements AppException {
+  const _TooManyRequests();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TooManyRequests);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'AppException.tooManyRequests()';
+}
+
+
+}
+
+
+
 
 /// @nodoc
 

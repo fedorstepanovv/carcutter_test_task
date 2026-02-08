@@ -25,12 +25,12 @@ $EmployeeDetailStateCopyWith<EmployeeDetailState> get copyWith => _$EmployeeDeta
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is EmployeeDetailState&&const DeepCollectionEquality().equals(other.name, name)&&const DeepCollectionEquality().equals(other.salary, salary)&&const DeepCollectionEquality().equals(other.age, age)&&const DeepCollectionEquality().equals(other.status, status)&&(identical(other.isValid, isValid) || other.isValid == isValid)&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.employeeId, employeeId) || other.employeeId == employeeId)&&(identical(other.isEditing, isEditing) || other.isEditing == isEditing));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is EmployeeDetailState&&(identical(other.name, name) || other.name == name)&&(identical(other.salary, salary) || other.salary == salary)&&(identical(other.age, age) || other.age == age)&&(identical(other.status, status) || other.status == status)&&(identical(other.isValid, isValid) || other.isValid == isValid)&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.employeeId, employeeId) || other.employeeId == employeeId)&&(identical(other.isEditing, isEditing) || other.isEditing == isEditing));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(name),const DeepCollectionEquality().hash(salary),const DeepCollectionEquality().hash(age),const DeepCollectionEquality().hash(status),isValid,failure,employeeId,isEditing);
+int get hashCode => Object.hash(runtimeType,name,salary,age,status,isValid,failure,employeeId,isEditing);
 
 @override
 String toString() {
@@ -62,12 +62,12 @@ class _$EmployeeDetailStateCopyWithImpl<$Res>
 
 /// Create a copy of EmployeeDetailState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? salary = freezed,Object? age = freezed,Object? status = freezed,Object? isValid = null,Object? failure = freezed,Object? employeeId = freezed,Object? isEditing = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? salary = null,Object? age = null,Object? status = null,Object? isValid = null,Object? failure = freezed,Object? employeeId = freezed,Object? isEditing = null,}) {
   return _then(_self.copyWith(
-name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as RequiredEmployeeInput,salary: freezed == salary ? _self.salary : salary // ignore: cast_nullable_to_non_nullable
-as RequiredEmployeeInput,age: freezed == age ? _self.age : age // ignore: cast_nullable_to_non_nullable
-as RequiredEmployeeInput,status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as RequiredEmployeeInput,salary: null == salary ? _self.salary : salary // ignore: cast_nullable_to_non_nullable
+as RequiredEmployeeInput,age: null == age ? _self.age : age // ignore: cast_nullable_to_non_nullable
+as RequiredEmployeeInput,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as FormzSubmissionStatus,isValid: null == isValid ? _self.isValid : isValid // ignore: cast_nullable_to_non_nullable
 as bool,failure: freezed == failure ? _self.failure : failure // ignore: cast_nullable_to_non_nullable
 as AppException?,employeeId: freezed == employeeId ? _self.employeeId : employeeId // ignore: cast_nullable_to_non_nullable
@@ -247,12 +247,12 @@ _$EmployeeDetailStateCopyWith<_EmployeeDetailState> get copyWith => __$EmployeeD
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EmployeeDetailState&&const DeepCollectionEquality().equals(other.name, name)&&const DeepCollectionEquality().equals(other.salary, salary)&&const DeepCollectionEquality().equals(other.age, age)&&const DeepCollectionEquality().equals(other.status, status)&&(identical(other.isValid, isValid) || other.isValid == isValid)&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.employeeId, employeeId) || other.employeeId == employeeId)&&(identical(other.isEditing, isEditing) || other.isEditing == isEditing));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EmployeeDetailState&&(identical(other.name, name) || other.name == name)&&(identical(other.salary, salary) || other.salary == salary)&&(identical(other.age, age) || other.age == age)&&(identical(other.status, status) || other.status == status)&&(identical(other.isValid, isValid) || other.isValid == isValid)&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.employeeId, employeeId) || other.employeeId == employeeId)&&(identical(other.isEditing, isEditing) || other.isEditing == isEditing));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(name),const DeepCollectionEquality().hash(salary),const DeepCollectionEquality().hash(age),const DeepCollectionEquality().hash(status),isValid,failure,employeeId,isEditing);
+int get hashCode => Object.hash(runtimeType,name,salary,age,status,isValid,failure,employeeId,isEditing);
 
 @override
 String toString() {
@@ -284,12 +284,12 @@ class __$EmployeeDetailStateCopyWithImpl<$Res>
 
 /// Create a copy of EmployeeDetailState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = freezed,Object? salary = freezed,Object? age = freezed,Object? status = freezed,Object? isValid = null,Object? failure = freezed,Object? employeeId = freezed,Object? isEditing = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? salary = null,Object? age = null,Object? status = null,Object? isValid = null,Object? failure = freezed,Object? employeeId = freezed,Object? isEditing = null,}) {
   return _then(_EmployeeDetailState(
-name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as RequiredEmployeeInput,salary: freezed == salary ? _self.salary : salary // ignore: cast_nullable_to_non_nullable
-as RequiredEmployeeInput,age: freezed == age ? _self.age : age // ignore: cast_nullable_to_non_nullable
-as RequiredEmployeeInput,status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as RequiredEmployeeInput,salary: null == salary ? _self.salary : salary // ignore: cast_nullable_to_non_nullable
+as RequiredEmployeeInput,age: null == age ? _self.age : age // ignore: cast_nullable_to_non_nullable
+as RequiredEmployeeInput,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as FormzSubmissionStatus,isValid: null == isValid ? _self.isValid : isValid // ignore: cast_nullable_to_non_nullable
 as bool,failure: freezed == failure ? _self.failure : failure // ignore: cast_nullable_to_non_nullable
 as AppException?,employeeId: freezed == employeeId ? _self.employeeId : employeeId // ignore: cast_nullable_to_non_nullable

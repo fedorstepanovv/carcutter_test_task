@@ -118,6 +118,9 @@ class ApiClient {
       }
       // Client errors
       if (statusCode >= 400) {
+        if (statusCode == 429) {
+          return AppException.tooManyRequests();
+        }
         return AppException.validationError(
           message: serverMessage,
           errors: data is Map ? data['errors'] : null,

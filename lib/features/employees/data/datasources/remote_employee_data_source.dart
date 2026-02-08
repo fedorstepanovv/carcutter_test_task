@@ -32,12 +32,22 @@ class RemoteEmployeeDataSourceImpl implements RemoteEmployeeDataSource {
   @override
   Future<EmployeeModel> updateEmployee(
     int id,
-    Map<String, dynamic> data,
+    Map<String, dynamic> body,
   ) async {
     final response = await _client.put<Map<String, dynamic>>(
       '/update/$id',
-      data: data,
+      data: body,
     );
+    final rawData = response['data'];
+
+    // Craft response manually if the server responsed with garbage
+    if (rawData is! Map<String, dynamic>) {
+      return EmployeeModel.fromJson({...body, 'id': id});
+    }
+    // insert id manually to avoid parsing issue
+    if (!rawData.containsKey('id')) {
+      rawData['id'] = id;
+    }
     return EmployeeModel.fromJson(response['data']);
   }
 

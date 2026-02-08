@@ -65,6 +65,7 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
       if (oldEmployee != null) {
         await _localDataSource.updateEmployee(oldEmployee);
       }
+      rethrow;
     }
   }
 
