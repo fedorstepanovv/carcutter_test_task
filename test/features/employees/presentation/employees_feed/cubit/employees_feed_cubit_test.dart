@@ -90,4 +90,24 @@ void main() {
       ],
     );
   });
+  blocTest<EmployeesFeedCubit, EmployeesFeedState>(
+    'emits [loading, loaded(empty)] when server returns empty data',
+    build: () => EmployeesFeedCubit(mockRepo),
+    setUp: () {
+      when(() => mockRepo.getEmployees()).thenAnswer((_) => Stream.value([]));
+      when(() => mockRepo.syncEmployees()).thenAnswer((_) async {});
+    },
+    act: (cubit) => cubit.loadEmployees(),
+    expect: () => [
+      isA<EmployeesFeedState>().having(
+        (s) => s.status,
+        'status',
+        EmployeesFeedStatus.loading,
+      ),
+
+      isA<EmployeesFeedState>()
+          .having((s) => s.status, 'status', EmployeesFeedStatus.loaded)
+          .having((s) => s.employees, 'employees', isEmpty),
+    ],
+  );
 }
