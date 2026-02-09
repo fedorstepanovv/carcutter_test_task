@@ -39,10 +39,14 @@ class EmployeesFeedCubit extends Cubit<EmployeesFeedState> {
 
     try {
       await _repository.syncEmployees();
-    } catch (_) {
-      // Add error state to show a full view error if no employees
+    } catch (e) {
       if (state.employees.isEmpty) {
-        emit(state.copyWith(status: EmployeesFeedStatus.error));
+        emit(
+          state.copyWith(
+            status: EmployeesFeedStatus.error,
+            failure: e is AppException ? e : AppException.unknown(),
+          ),
+        );
       }
     }
   }
