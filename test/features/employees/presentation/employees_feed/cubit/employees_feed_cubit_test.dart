@@ -66,7 +66,7 @@ void main() {
     );
 
     blocTest<EmployeesFeedCubit, EmployeesFeedState>(
-      'emits [loading, loaded(empty), error] when local data is empty and remote sync fails',
+      'emits [loading, error] when local data is empty and remote sync fails',
       build: () => EmployeesFeedCubit(mockRepo),
       setUp: () {
         when(() => mockRepo.getEmployees()).thenAnswer((_) => Stream.value([]));
@@ -82,11 +82,6 @@ void main() {
           'status',
           EmployeesFeedStatus.loading,
         ),
-
-        // loaded with empty list
-        isA<EmployeesFeedState>()
-            .having((s) => s.status, 'status', EmployeesFeedStatus.loaded)
-            .having((s) => s.employees, 'employees', isEmpty),
 
         // failed with app exception
         isA<EmployeesFeedState>()

@@ -13,15 +13,19 @@ class EmployeesFeedCubit extends Cubit<EmployeesFeedState> {
   EmployeesFeedCubit(this._repository) : super(EmployeesFeedState());
 
   Future<void> loadEmployees() async {
+    emit(state.copyWith(status: EmployeesFeedStatus.loading));
     await _employeesSubscription?.cancel();
     _employeesSubscription = _repository.getEmployees().listen(
       (employees) {
-        emit(
-          state.copyWith(
-            employees: employees,
-            status: EmployeesFeedStatus.loaded,
-          ),
-        );
+        // if cache exists
+        if (employees.isNotEmpty) {
+          emit(
+            state.copyWith(
+              employees: employees,
+              status: EmployeesFeedStatus.loaded,
+            ),
+          );
+        }
       },
       onError: (error) {
         // Local database error
@@ -39,6 +43,9 @@ class EmployeesFeedCubit extends Cubit<EmployeesFeedState> {
 
     try {
       await _repository.syncEmployees();
+      if (state.employees.isEmpty) {
+        emit(state.copyWith(status: EmployeesFeedStatus.loaded, employees: []));
+      }
     } catch (e) {
       if (state.employees.isEmpty) {
         emit(
