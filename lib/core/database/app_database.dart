@@ -17,4 +17,9 @@ class AppDatabase {
     final dbPath = join(dir.path, 'app_database.db');
     return await databaseFactoryIo.openDatabase(dbPath);
   }
+
+  Future<void> dispose() async {
+    await _database?.close();
+    _database = null;
+  }
 }

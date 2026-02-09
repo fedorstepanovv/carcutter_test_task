@@ -23,7 +23,10 @@ void setupServiceLocator() {
     return dio;
   });
   sl.registerLazySingleton<ApiClient>(() => ApiClient(sl<Dio>()));
-  sl.registerLazySingleton<AppDatabase>(() => AppDatabase());
+  sl.registerLazySingleton<AppDatabase>(
+    () => AppDatabase(),
+    dispose: (db) => db.dispose(),
+  );
 
   ///
   /// Employee
